@@ -27,6 +27,7 @@ class PointArea extends StatelessWidget {
           secondHintText: 'Y',
           firstTextEditingController: firstTextEditingController,
           secondTextEditingController: secondTextEditingController,
+          point: pointLabel,
         ),
         const SizedBox(height: 30),
       ],

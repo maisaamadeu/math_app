@@ -9,10 +9,12 @@ class DoubleTextField extends StatelessWidget {
     required this.secondHintText,
     required this.firstTextEditingController,
     required this.secondTextEditingController,
+    required this.point,
   }) : super(key: key);
 
   final String firstHintText;
   final String secondHintText;
+  final String point;
   final TextEditingController firstTextEditingController;
   final TextEditingController secondTextEditingController;
 
@@ -49,16 +51,18 @@ class DoubleTextField extends StatelessWidget {
       ),
       child: Row(
         children: [
-          _buildTextField(context, firstTextEditingController, firstHintText),
+          _buildTextField(
+              context, firstTextEditingController, firstHintText, point),
           _buildDivider(),
-          _buildTextField(context, secondTextEditingController, secondHintText),
+          _buildTextField(
+              context, secondTextEditingController, secondHintText, point),
         ],
       ),
     );
   }
 
-  Widget _buildTextField(
-      BuildContext context, TextEditingController controller, String hintText) {
+  Widget _buildTextField(BuildContext context, TextEditingController controller,
+      String hintText, String point) {
     return Expanded(
       child: TextFormField(
         controller: controller,
@@ -71,12 +75,13 @@ class DoubleTextField extends StatelessWidget {
         ),
         validator: (value) {
           if (value == null || value.isEmpty) {
-            showSnackbarError(context, 'Um ou mais pontos estão vazios!');
+            showSnackbarError(context,
+                'O valor de $hintText do ponto ${point.replaceAll("Ponto ", "")} não pode ficar vazio!');
             return '';
           }
           if (!numberRegExp.hasMatch(value)) {
             showSnackbarError(context,
-                'Um ou mais pontos são inválidos! Lembre-se: é apenas números! Exemplo: 1, 1.0');
+                'O valor de $hintText do ponto ${point.replaceAll("Ponto ", "")} é inválido! Lembre-se: é apenas números! Exemplo: 1, 1.0');
             return '';
           }
           return null;
